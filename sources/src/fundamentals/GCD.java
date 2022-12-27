@@ -1,17 +1,13 @@
-import java.util.Arrays;
-import java.io.*;
+package fundamentals;
 
-public class GCD
-{
-    public static int gcd(int p, int q)
-    {
+public class GCD {
+    public static int gcd(int p, int q) {
         if (q == 0) return p;
         int r = p % q;
         return gcd(q, r);
     }
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         int first = 200;
         int second = 288;
         int res = gcd(first, second);
