@@ -1,3 +1,5 @@
-# Algorithms and Data Structures
+# Table of Contents
+1. [Fundamentals](./fundamentals/fundamentals.md)
 
-Code to go along with an algorithms and data structures video by FreeCodeCamp, seen [here](https://www.youtube.com/watch?v=pkYVOmU3MgA)
+# Extra
+1. [Vocab](./vocab.md)
