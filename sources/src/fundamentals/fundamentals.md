@@ -310,4 +310,8 @@ for(Node x=first;x!=null;x=x.next){
 
 If a linked list is used solely for something like a stack or
 queue, where we are only interacting with the first or last node,
-all operations are constant time.
+all operations are constant time. For a queue, we also need to
+consider the scenario where the first and last node are the same
+(when we have one element).
+
+## Next topic
