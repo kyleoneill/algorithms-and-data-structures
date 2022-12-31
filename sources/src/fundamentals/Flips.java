@@ -6,7 +6,7 @@ public class Flips {
     public static void main(String[] args) {
         int trials;
         if (args.length < 1) {
-            trials = 10;
+            trials = 100;
         }
         else {
             trials = Integer.parseInt(args[0]);
@@ -22,6 +22,11 @@ public class Flips {
         System.out.println(heads);
         System.out.println(tails);
         int delta = heads.tally() - tails.tally();
-        System.out.printf("delta: %s%n", Math.abs(delta));
+        if (delta == 0)
+            System.out.print("tie");
+        else {
+            Counter max = Counter.max(heads, tails);
+            System.out.printf("%s wins", max);
+        }
     }
 }

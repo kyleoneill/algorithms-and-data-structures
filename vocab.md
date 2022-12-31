@@ -10,3 +10,18 @@
   foo.increment(); // This increments the tally field of foo AND bar, as they share the same reference
   System.out.println(bar.tally) // This prints 1. foo.increment() has also incremented bar
   ```
+- Handle, Reference, Pointer
+  - Pointer - A bundle of an address and a type, describing where some
+    data is located in memory and what type that data is.
+  - Reference - An alias of an object. References are sometimes implemented
+    as pointers that are automatically dereferenced upon use. A usage of a
+    reference is a usage of the object.
+  - Handle - An opaque reference to an object, the type of the handle is
+    unrelated to the referenced element. It can be thought of as (but is not
+    literally) a pointer to a pointer. A good example is the returned `int`
+    of a system call to `open`. `open` returns an `int` which represents an
+    entry in the open files table. That entry is responsible for storing
+    reference data, the handle is a way to reference the entry. This allows
+    for the implementation of the table to be refactored without breaking
+    compatiblity, as long as `open` always returns an `int` referring to a table
+    entry.

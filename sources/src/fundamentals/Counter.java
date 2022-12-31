@@ -5,7 +5,7 @@ public class Counter {
     private String id;
 
     public Counter(String idInput) {
-        tally = 0;
+        // tally is a numeric primitive and will default to 0
         id = idInput;
     }
 
@@ -19,6 +19,11 @@ public class Counter {
 
     public String toString() {
         return String.format("%s %s", tally, id);
+    }
+
+    public static Counter max(Counter x, Counter y) {
+        if (x.tally() > y.tally()) return x;
+        else return y;
     }
 
     public static void main(String[] args) {
