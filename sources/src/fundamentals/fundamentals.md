@@ -93,7 +93,9 @@ be repeated further. This will be an `n` time operation rather than a constant
 one, but it will prevent the described issue.
 
 Most languages deal with immutability the same way Java does, or just have
-all data be mutable. Rust deals with this issue by marking data as mutable with
+all data be mutable.
+
+Rust deals with this issue by marking data as mutable with
 a `mut` keyword. Data is, by default, moved (passing by value and switching
 ownership). A passed reference can only be modified if given a `mut` reference
 and only one of these can exist at a time (with exceptions).
@@ -239,3 +241,73 @@ reference of the next element to the previous element, which is
 a constant time operation. The drawback is that accessing an
 element by index is an n time operation, as we can only get to
 the `n`th element by traversing the list from the start.
+
+A linked list node looks like
+
+```java
+private class Node {
+    T item;
+    Node next;
+}
+```
+
+The below subheaders assume that `first` is our reference to
+the first node in a linked list. We should also maintain a `last`
+which is a reference to the final node. It also helps to keep
+some variable in the linked list class to keep track of the
+length of the list. Traversing the list is an n time operation
+and we cannot get the size in constant time like we can for an
+array. Keeping some variable in our class that is incremented when
+we add to the list and decremented when we remove an element
+will make an `int size()` method run in constant time.
+
+#### Inserting at the Beginning
+
+Inserting an item at the start of something like a `Vec` is an
+`n` time operation (we need to shift every element). Inserting
+to the start of a linked list is a constant time operation.
+
+1. Make a reference to the first item, `Node oldFirst = first;`
+2. Make a new node to be the head, `Node first = new Node();`
+3. Initialize the new head, `first.item = "foo"; first.next = oldFirst;`
+
+#### Removing from the Beginning
+
+We can remove the first element like
+
+```java
+T poppedElement=first.item;
+        first=first.next;
+```
+
+#### Inserting at the End
+
+Inserting to the end is a constant time operation if we are
+maintaining a reference to the final element, we just set
+`last.next = newLast;`. If we do not have a reference to the last
+element, see the next section.
+
+#### Inserting/Removing from Somewhere in the Middle
+
+Inserting to an arbitrary position is an n time operation. Linked
+lists cannot be indexed like a `Vec` or array, we need to traverse
+the list until we get to the link we want to modify.
+
+When removing a node, we need to link the previous and next
+nodes together (relative to the one being removed). Because we
+need to look in both directions, we might need to make this a
+doubly-linked list (each node has a `next` and `previous`).
+
+#### Traversal
+
+A linked list can be traversed with a for loop
+
+```java
+for(Node x=first;x!=null;x=x.next){
+        // We are traversing the list
+        }
+```
+
+If a linked list is used solely for something like a stack or
+queue, where we are only interacting with the first or last node,
+all operations are constant time.
