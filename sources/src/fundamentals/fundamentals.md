@@ -47,9 +47,9 @@ book) creates a copy of the reference. This does _not_ create a new object.
 
 ```java
 Counter foo=new Counter(); // This creates a new counter with a tally of 0
-        Counter bar=foo; // This copies the reference of foo into bar
-        foo.increment(); // This increments the tally field of foo AND bar, as they share the same reference
-        System.out.println(bar.tally) // This prints 1. foo.increment() has also incremented bar
+Counter bar=foo; // This copies the reference of foo into bar
+foo.increment(); // This increments the tally field of foo AND bar, as they share the same reference
+System.out.println(bar.tally) // This prints 1. foo.increment() has also incremented bar
 ```
 
 Following this, passing an object to a method or function passes a reference
@@ -81,8 +81,8 @@ public class Vector {
     }
 }
 
-    double[] a = { 3.0, 4.0 };
-    Vector vec = new Vector(a);
+double[] a = { 3.0, 4.0 };
+Vector vec = new Vector(a);
 a[0]=0.0; // This mutates the `final vec.a` field by bypassing the Vector API
 ```
 
@@ -203,13 +203,13 @@ When we `pop` we should also `null`ify data we are removing so it
 can be garbage collected. For example,
 
 ```java
-// Autoformatter, WHY are you like this
 public T pop(){
-        T item=a[--n];
-        a[n]=null; // Avoid loitering
-        if(n>0&&n<=a.length/4)resize(a.length/2);
-        return item;
-        }
+  T item=a[--n];
+  a[n]=null; // Avoid loitering
+  if(n > 0 && n <= a.length / 4)
+    resize(a.length/2);
+  return item;
+}
 ```
 
 Setting `a[n] = null` when popping an item deletes our reference
@@ -277,14 +277,20 @@ We can remove the first element like
 
 ```java
 T poppedElement=first.item;
-        first=first.next;
+first=first.next;
 ```
 
 #### Inserting at the End
 
 Inserting to the end is a constant time operation if we are
 maintaining a reference to the final element, we just set
-`last.next = newLast;`. If we do not have a reference to the last
+
+```java
+last.next = newLast;
+last = newLast;
+```
+
+If we do not have a reference to the last
 element, see the next section.
 
 #### Inserting/Removing from Somewhere in the Middle
@@ -303,15 +309,49 @@ doubly-linked list (each node has a `next` and `previous`).
 A linked list can be traversed with a for loop
 
 ```java
-for(Node x=first;x!=null;x=x.next){
-        // We are traversing the list
-        }
+for(Node x = first; x != null; x = x.next){
+  // We are traversing the list
+}
 ```
 
 If a linked list is used solely for something like a stack or
 queue, where we are only interacting with the first or last node,
-all operations are constant time. For a queue, we also need to
+all operations are constant time. We also need to
 consider the scenario where the first and last node are the same
 (when we have one element).
 
-## Next topic
+## Analysis of Algorithms
+
+When figuring out how long it will take for a program to run, the first
+assumption is likely that it relates to the size of the input data. It makes
+sense to assume that a larger input will take more time. The interesting thing
+to figure out is the rate of growth in the length of time it takes to run a
+program as the size of the input grows.
+
+### Mathematical Models
+
+A hypthetical equation to describe the runtime of a program is `T(n) = a(n^b)`.
+This equation says that the time it takes to run a function of `n` inputs is
+`n` raised to `b` multiplied by `a`. This follows Knuth's idea of how to calculate
+the runtime of any program by knowing the cost of executing each statement (`a`)
+and the frequency of execution of each statement (`n^b`).
+
+#### Approximations
+
+Writing an equation to determine how long an algorithm or statement takes compared
+to the input size can become complicated fast. This process is simplified by
+approximating. We can throw away terms after the leading one, as they will become
+insignificant as the input size grows. `n^3/6 - n^2/2 + n/3` can be approximated
+as `n^3/6` which follows an order of growth of `n^3`.
+
+Some commonly seen orders of growth are
+
+| Description  | Function |
+|--------------|----------|
+| Constant     | 1        |
+| logarithmic  | log n    |
+| linear       | n        |
+| linearithmic | n log n  |
+| quadratic    | n^2      |
+| cubic        | n^3      |
+| exponential  | 2^n      |

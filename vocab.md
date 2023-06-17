@@ -25,3 +25,15 @@
     for the implementation of the table to be refactored without breaking
     compatiblity, as long as `open` always returns an `int` referring to a table
     entry.
+- Covariance
+  - Covarient - Subtyping relation of simple types are preserved for complex
+    ones. A list constructor is covarient if `Cat` is a subtype of `Animal` and
+    a `List<Cat>` is a subtype of `List<Animal>`.
+  - Contravariant - Subtyping relation of simple types are reversed for
+    complex ones. A function type constructor is contravariant if a function
+    that converts an `Animal` to a `String` is a subtype of one that converts
+    a `Cat` to a `String`.
+  - Invariant - No variance in use.
+  - Covariance is the quality of becoming more specific (`Cat` is covariant
+    to `Animal`) and contravariance is the quality of becoming more general
+    `Animal` is contravariant to `Cat`).
