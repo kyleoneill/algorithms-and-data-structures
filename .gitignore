@@ -1,2 +1,9 @@
 *.class
 output
+*.idea
+
+debug/
+target/
+Cargo.lock
+**/*.rs.bk
+*.pdb
